@@ -84,18 +84,3 @@ export interface HeatingElementFormProps {
    */
   onChange: (element: Partial<HeatingElement>) => void;
 }
-
-/**
- * Props for the HeatingElementSummary component
- */
-export interface HeatingElementSummaryProps {
-  /**
-   * Element to display summary for
-   */
-  element: Partial<HeatingElement>;
-  
-  /**
-   * Available circuits for reference
-   */
-  circuits: HeatingCircuit[];
-}
