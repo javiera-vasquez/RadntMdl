@@ -2,6 +2,8 @@
 
 A modern, responsive UI component for configuring heating elements in planning applications. This component provides an intuitive interface for adding and configuring various types of radiators and heating elements.
 
+![DDemo Time!](https://github.com/javiera-vasquez/RadntMdl/blob/main/ezgif-357c2e396fb44e.gif)
+
 ## Project Overview
 
 This project implements a modal interface for adding and configuring various heating elements (radiators, floor heating, etc.) with the following features:
