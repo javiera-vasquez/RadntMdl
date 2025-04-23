@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { HeatingModal } from "@/components/HeatingModal/HeatingModal";
 import { HeatingElement } from "@/components/HeatingModal/types";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -14,21 +16,26 @@ function App() {
   };
 
   return (
-    <div className="container flex flex-col items-center justify-center min-h-svh p-4">
-      <Button 
-        onClick={() => setIsModalOpen(!isModalOpen)}
-        variant="outline"
-        className="mb-4"
-      >
-        {isModalOpen ? "Close Modal" : "Open Modal"}
-      </Button>
-      
-      <HeatingModal 
-        isOpen={isModalOpen} 
-        onOpenChange={setIsModalOpen}
-        onAdd={handleAddHeatingElement}
-      />
-    </div>
+    <ThemeProvider defaultTheme="system" storageKey="radnt-theme">
+      <div className="bg-white dark:bg-slate-950 text-black dark:text-white min-h-svh w-full transition-colors duration-200">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+          <Button 
+            onClick={() => setIsModalOpen(!isModalOpen)}
+            variant="link"
+            className="mb-4"
+          >
+            {isModalOpen ? "Close Modal" : "Open Modal"}
+          </Button>
+          <ThemeToggle />
+        </div>
+        
+        <HeatingModal 
+          isOpen={isModalOpen} 
+          onOpenChange={setIsModalOpen}
+          onAdd={handleAddHeatingElement}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 
