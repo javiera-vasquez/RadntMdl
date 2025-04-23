@@ -5,7 +5,11 @@ import { HeatingTypeSelector } from "./HeatingTypeSelector";
 import { HeatingActions } from "./HeatingActions";
 import { HeatingContextProvider, useHeatingContext } from "./context/HeatingContext";
 import { elementFormRegistry } from "./registry";
-import React from "react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Info, PlusIcon } from "lucide-react";
 
 /**
  * The main modal component that wraps all heating configuration UI elements.
@@ -38,8 +42,7 @@ function HeatingModalContent({
     setElementType, 
     setCircuit, 
     updateDimension,
-    updateProperty,
-    validate 
+    updateProperty
   } = useHeatingContext();
   
   // Only handle the two supported types
@@ -50,28 +53,57 @@ function HeatingModalContent({
   
   // Handle the "Add" button click
   const handleAdd = () => {
-    const errors = validate();
-    
-    if (Object.keys(errors).length === 0 && onAdd) {
+    if (onAdd) {
       onAdd(state.element as HeatingElement);
     }
   };
   
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>{t("modal.title")}</DialogTitle>
+      <DialogContent className="md:max-w-[480pt] max-h-[90vh] overflow-y-auto p-0">
+        <DialogHeader className="border-b-1 px-6 py-4">
+          <DialogTitle className="text-xl font-light">{t("modal.title")}</DialogTitle>
         </DialogHeader>
+
+        {/* Circuit Selection - Always shown at the top */}
+        <Card className="md:mx-6 md:my-2 shadow-xs bg-sidebar p-0 rounded-sm">
+          <CardContent className="p-4">
+              <div className="flex justify-between items-center mb-2">
+                <Label htmlFor="heating-circuit" className="text-sm">{t("fields.circuit")}</Label>
+                <Button 
+                  variant="link" 
+                  size="sm" 
+                  className="text-xs cursor-pointer h-auto"
+                  onClick={() => alert("Add circuit functionality would go here")}
+                >
+                  <PlusIcon className="mr-1 h-3 w-3" />
+                  {t("modal.addCircuit")}
+                </Button>
+              </div>
+
+              <Select 
+                value={state.element.circuitId || ""} 
+                onValueChange={setCircuit}
+              >
+                <SelectTrigger id="heating-circuit" className="w-full bg-background">
+                  <SelectValue placeholder={t("placeholders.selectCircuit")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {state.circuits.map(circuit => (
+                    <SelectItem key={circuit.id} value={circuit.id}>
+                      {circuit.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+          </CardContent>
+        </Card>
         
-        {/* Mobile layout: single column with accordion and form stacked */}
-        <div className="block md:hidden space-y-6">
+        {/* Mobile layout: vertical stack */}
+        <div className="block md:hidden space-y-0">
           <HeatingTypeSelector 
             selectedType={state.element.type}
             onTypeSelect={setElementType}
-            circuits={state.circuits}
-            selectedCircuitId={state.element.circuitId || ""}
-            onCircuitSelect={setCircuit}
           />
           
           {/* Form component */}
@@ -83,32 +115,31 @@ function HeatingModalContent({
                   updateDimension,
                   updateProperty
                 }}
-                errors={state.errors}
               />
             </div>
           )}
         </div>
         
         {/* Desktop layout: two columns with accordion on left and form on right */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-0">
+        <div className="hidden md:grid md:grid-cols-3 md:gap-0 px-6">
           {/* Left column - Type selector */}
-          <div className="pr-4 border-r">
-            <HeatingTypeSelector 
-              selectedType={state.element.type}
-              onTypeSelect={setElementType}
-              circuits={state.circuits}
-              selectedCircuitId={state.element.circuitId || ""}
-              onCircuitSelect={setCircuit}
-              desktopLayout={true}
-            />
+          <div className="border-r pr-6">
+            <div className="p-0 bg-sidebar rounded-md">
+              <HeatingTypeSelector 
+                selectedType={state.element.type}
+                onTypeSelect={setElementType}
+                desktopLayout={true}
+              />
+            </div>
           </div>
           
           {/* Right column - Form fields */}
-          <div className="pl-6 space-y-6">
-            <h3 className="text-lg font-medium mb-4">
+          <div className="pl-6 space-y-6 col-span-2">
+            <h3 className="text-lg font-light mb-4 flex items-center">
               {type === 'panel-radiator' 
                 ? t("heatingTypes.panelRadiator") 
                 : t("heatingTypes.steelCastRadiator")}
+              <Info className="w-4 h-4 ml-2 text-primary" />
             </h3>
             
             {FormComponent && (
@@ -118,7 +149,6 @@ function HeatingModalContent({
                   updateDimension,
                   updateProperty
                 }}
-                errors={state.errors}
               />
             )}
           </div>
@@ -127,7 +157,6 @@ function HeatingModalContent({
         <HeatingActions 
           onClose={() => onOpenChange(false)}
           onAdd={handleAdd}
-          isValid={Object.keys(state.errors).length === 0}
         />
       </DialogContent>
     </Dialog>

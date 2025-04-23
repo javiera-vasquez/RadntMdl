@@ -8,7 +8,6 @@ type SupportedHeatingType = 'panel-radiator' | 'steel-cast-radiator';
 interface HeatingState {
   element: Partial<HeatingElement> & { type: SupportedHeatingType };
   circuits: HeatingCircuit[];
-  errors: Record<string, string>;
 }
 
 // Action types
@@ -17,7 +16,6 @@ type HeatingAction =
   | { type: 'SET_CIRCUIT'; payload: string }
   | { type: 'UPDATE_DIMENSION'; payload: { key: string; value: number | undefined } }
   | { type: 'UPDATE_PROPERTY'; payload: { key: string; value: string | number | boolean | undefined } }
-  | { type: 'SET_ERRORS'; payload: Record<string, string> }
   | { type: 'RESET' };
 
 // Initial state
@@ -33,8 +31,7 @@ const initialState: HeatingState = {
     properties: {},
     standardOutput: 461
   },
-  circuits: [{ id: "circuit-1", name: "Heating circuit 1" }],
-  errors: {}
+  circuits: [{ id: "circuit-1", name: "Heating circuit 1" }]
 };
 
 // Reducer function
@@ -78,11 +75,6 @@ function heatingReducer(state: HeatingState, action: HeatingAction): HeatingStat
           }
         }
       };
-    case 'SET_ERRORS':
-      return {
-        ...state,
-        errors: action.payload
-      };
     case 'RESET':
       return initialState;
     default:
@@ -97,7 +89,6 @@ interface HeatingContextType {
   setCircuit: (circuitId: string) => void;
   updateDimension: (data: { key: string; value: number | undefined }) => void;
   updateProperty: (data: { key: string; value: string | number | boolean | undefined }) => void;
-  validate: () => Record<string, string>;
   reset: () => void;
 }
 
@@ -125,26 +116,6 @@ export function HeatingContextProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'UPDATE_PROPERTY', payload: data });
   };
 
-  const validate = () => {
-    const errors: Record<string, string> = {};
-    
-    // Basic validation
-    if (!state.element.circuitId) {
-      errors.circuitId = "Heating circuit is required";
-    }
-    
-    if (!state.element.dimensions?.height) {
-      errors.height = "Height is required";
-    }
-    
-    if (!state.element.dimensions?.length) {
-      errors.length = "Length is required";
-    }
-    
-    dispatch({ type: 'SET_ERRORS', payload: errors });
-    return errors;
-  };
-
   const reset = () => {
     dispatch({ type: 'RESET' });
   };
@@ -156,7 +127,6 @@ export function HeatingContextProvider({ children }: { children: ReactNode }) {
     setCircuit,
     updateDimension,
     updateProperty,
-    validate,
     reset
   };
 

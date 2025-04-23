@@ -1,9 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { t } from "@/lib/i18n";
-import { HeatingCircuit } from "./types";
+import { cn } from "@/lib/utils";
 
 // Define SupportedHeatingType locally to match what's used in context
 type SupportedHeatingType = 'panel-radiator' | 'steel-cast-radiator';
@@ -14,21 +11,15 @@ type SupportedHeatingType = 'panel-radiator' | 'steel-cast-radiator';
 interface HeatingTypeSelectorProps {
   selectedType: SupportedHeatingType;
   onTypeSelect: (type: SupportedHeatingType) => void;
-  circuits: HeatingCircuit[];
-  selectedCircuitId: string;
-  onCircuitSelect: (circuitId: string) => void;
   desktopLayout?: boolean; // Optional prop for desktop layout mode
 }
 
 /**
- * Component for selecting heating type and circuit
+ * Component for selecting heating type
  */
 export function HeatingTypeSelector({ 
   selectedType, 
   onTypeSelect,
-  circuits,
-  selectedCircuitId,
-  onCircuitSelect,
   desktopLayout = false
 }: HeatingTypeSelectorProps) {
   // Map of element types to their display names - only include the two required types
@@ -39,37 +30,6 @@ export function HeatingTypeSelector({
 
   return (
     <div className="space-y-4">
-      {/* Circuit Selection - Only show at the top in mobile layout */}
-      {!desktopLayout && (
-        <div>
-          <Label htmlFor="heating-circuit">{t("fields.circuit")}</Label>
-          <Select 
-            value={selectedCircuitId} 
-            onValueChange={onCircuitSelect}
-          >
-            <SelectTrigger id="heating-circuit" className="w-full">
-              <SelectValue placeholder="Select circuit" />
-            </SelectTrigger>
-            <SelectContent>
-              {circuits.map(circuit => (
-                <SelectItem key={circuit.id} value={circuit.id}>
-                  {circuit.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          
-          <Button 
-            variant="link" 
-            size="sm" 
-            className="mt-1 p-0 h-auto text-xs"
-            onClick={() => alert("Add circuit functionality would go here")}
-          >
-            {t("modal.addCircuit")}
-          </Button>
-        </div>
-      )}
-
       {/* Heating Element Type Selection - Different styling for desktop/mobile */}
       <div>
         <Accordion 
@@ -83,12 +43,14 @@ export function HeatingTypeSelector({
             <AccordionItem 
               key={type} 
               value={type} 
-              className={desktopLayout ? "border-b-0" : ""}
+              className={desktopLayout ? "border-b-0 px-2 py-0.5" : ""}
             >
               <AccordionTrigger 
-                className={`text-sm ${desktopLayout ? "py-2 hover:no-underline" : ""} ${
-                  desktopLayout && selectedType === type ? "font-semibold text-primary" : ""
-                }`}
+                className={cn(
+                  "text-xs truncate whitespace-nowrap flex items-center gap-2",
+                  desktopLayout && "py-2 hover:no-underline data-[state=open]:text-primary [&>svg]:rotate-[0deg] [&>svg]:ml-0 [&>svg]:mr-2 [&>svg]:h-3 [&>svg]:w-3 [&[data-state=open]>svg]:-rotate-90",
+                  selectedType === type && "text-primary"
+                )}
               >
                 {label}
               </AccordionTrigger>
@@ -104,37 +66,6 @@ export function HeatingTypeSelector({
           ))}
         </Accordion>
       </div>
-
-      {/* In desktop layout, show circuit selection below accordion */}
-      {desktopLayout && (
-        <div>
-          <Label htmlFor="desktop-heating-circuit">{t("fields.circuit")}</Label>
-          <Select 
-            value={selectedCircuitId} 
-            onValueChange={onCircuitSelect}
-          >
-            <SelectTrigger id="desktop-heating-circuit" className="w-full">
-              <SelectValue placeholder="Select circuit" />
-            </SelectTrigger>
-            <SelectContent>
-              {circuits.map(circuit => (
-                <SelectItem key={circuit.id} value={circuit.id}>
-                  {circuit.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          
-          <Button 
-            variant="link" 
-            size="sm" 
-            className="mt-1 p-0 h-auto text-xs"
-            onClick={() => alert("Add circuit functionality would go here")}
-          >
-            {t("modal.addCircuit")}
-          </Button>
-        </div>
-      )}
     </div>
   );
 }

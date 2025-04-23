@@ -4,6 +4,7 @@ import { HeatingModal } from "@/components/HeatingModal/HeatingModal";
 import { HeatingElement } from "@/components/HeatingModal/types";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -21,9 +22,11 @@ function App() {
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
           <Button 
             onClick={() => setIsModalOpen(!isModalOpen)}
-            variant="link"
+            size="lg"
+            variant="outline"
             className="mb-4"
           >
+            <SquareArrowOutUpRight className="w-4 h-4 mr-2" />
             {isModalOpen ? "Close Modal" : "Open Modal"}
           </Button>
           <ThemeToggle />

@@ -14,18 +14,13 @@ interface HeatingActionsProps {
    * Callback when add button is clicked
    */
   onAdd: () => void;
-  
-  /**
-   * Whether the form is valid and the add button should be enabled
-   */
-  isValid?: boolean;
 }
 
 /**
  * Component that contains action buttons for the heating modal
  * Typically rendered at the bottom of the modal
  */
-export function HeatingActions({ onClose, onAdd, isValid = true }: HeatingActionsProps) {
+export function HeatingActions({ onClose, onAdd }: HeatingActionsProps) {
   return (
     <div className="flex justify-between items-center mt-6 pt-4 border-t">
       <div className="flex-1">
@@ -42,7 +37,6 @@ export function HeatingActions({ onClose, onAdd, isValid = true }: HeatingAction
         
         <Button
           onClick={onAdd}
-          disabled={!isValid}
         >
           {t("modal.add")}
         </Button>

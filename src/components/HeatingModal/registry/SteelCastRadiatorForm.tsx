@@ -2,76 +2,60 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { t } from "@/lib/i18n";
-import { FormProps } from "./index";
+import type { FormProps } from "./index";
 
 /**
  * Form component for Steel/Cast Radiator type
  */
-export function SteelCastRadiatorForm({ element, onChange, errors }: FormProps) {
+export function SteelCastRadiatorForm({ element, onChange }: FormProps) {
   const { updateDimension, updateProperty } = onChange;
   
   return (
     <div className="space-y-4">
-      {/* Material Type */}
-      <div>
-        <Label htmlFor="material-type">Material Type</Label>
+      <div className="">
+        <Label htmlFor="material-type" className="text-sm text-muted-foreground font-light">{t("fields.materialType")}</Label>
         <Select 
           value={element.properties?.materialType as string || ""} 
           onValueChange={(value) => updateProperty({ key: "materialType", value })}
         >
           <SelectTrigger id="material-type">
-            <SelectValue placeholder="Select material" />
+            <SelectValue placeholder={t("placeholders.selectMaterial")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="steel">Steel</SelectItem>
-            <SelectItem value="cast-iron">Cast Iron</SelectItem>
+            <SelectItem value="steel">{t("selectOptions.materialTypes.steel")}</SelectItem>
+            <SelectItem value="cast-iron">{t("selectOptions.materialTypes.cast-iron")}</SelectItem>
           </SelectContent>
         </Select>
-        {errors.materialType && (
-          <p className="text-sm text-destructive mt-1">{errors.materialType}</p>
-        )}
       </div>
       
-      {/* Sections */}
-      <div>
-        <Label htmlFor="sections">Number of Sections</Label>
+      <div className="">
+        <Label htmlFor="sections" className="text-sm text-muted-foreground font-light">{t("fields.sections")}</Label>
         <Input 
           id="sections"
           type="number"
           value={(element.properties?.sections as number) || ""}
           onChange={(e) => updateProperty({ key: "sections", value: parseInt(e.target.value) || undefined })}
         />
-        {errors.sections && (
-          <p className="text-sm text-destructive mt-1">{errors.sections}</p>
-        )}
       </div>
       
-      {/* Height */}
-      <div>
-        <Label htmlFor="height">{t("fields.height")}</Label>
+      <div className="">
+        <Label htmlFor="cast-height" className="text-sm text-muted-foreground font-light">{t("fields.height")}</Label>
         <Input 
-          id="height"
+          id="cast-height"
           type="number"
-          value={element.dimensions?.height || ""}
-          onChange={(e) => updateDimension({ key: "height", value: parseInt(e.target.value) || undefined })}
+          value={element.dimensions?.castHeight || ""}
+          onChange={(e) => updateDimension({ key: "castHeight", value: parseInt(e.target.value) || undefined })}
         />
-        {errors.height && (
-          <p className="text-sm text-destructive mt-1">{errors.height}</p>
-        )}
       </div>
       
-      {/* Length */}
-      <div>
-        <Label htmlFor="length">{t("fields.length")}</Label>
+      <div className="">
+        <Label htmlFor="cast-length" className="text-sm text-muted-foreground font-light">{t("fields.length")}</Label>
         <Input 
-          id="length"
+          id="cast-length"
           type="number"
-          value={element.dimensions?.length || ""}
-          onChange={(e) => updateDimension({ key: "length", value: parseInt(e.target.value) || undefined })}
+          value={element.dimensions?.castLength || ""}
+          onChange={(e) => updateDimension({ key: "castLength", value: parseInt(e.target.value) || undefined })}
         />
-        {errors.length && (
-          <p className="text-sm text-destructive mt-1">{errors.length}</p>
-        )}
       </div>
     </div>
   );

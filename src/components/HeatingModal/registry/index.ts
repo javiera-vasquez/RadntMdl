@@ -1,4 +1,3 @@
-import { HeatingElementType } from "../types";
 import { PanelRadiatorForm } from "./PanelRadiatorForm";
 import { SteelCastRadiatorForm } from "./SteelCastRadiatorForm";
 

@@ -24,5 +24,24 @@ export const translations = {
     photos: "Fotos",
     model3d: "3D-Modell",
     totalOutput: "Summe der Normleistung",
+    materialType: "Material Typ",
+    sections: "Anzahl der Segmente",
+    panelType: "Platten Typ",
+  },
+  placeholders: {
+    selectCircuit: "Heizkreis auswählen",
+    selectMaterial: "Material auswählen",
+    selectPanelType: "Plattentyp auswählen",
+  },
+  selectOptions: {
+    panelTypes: {
+      single: "Einzelplatte",
+      double: "Doppelplatte",
+      triple: "Dreifachplatte",
+    },
+    materialTypes: {
+      steel: "Stahl",
+      "cast-iron": "Gusseisen",
+    },
   },
 };

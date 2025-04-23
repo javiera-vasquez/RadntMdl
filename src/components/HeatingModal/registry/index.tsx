@@ -10,7 +10,6 @@ export interface FormProps {
     updateDimension: (data: { key: string; value: number | undefined }) => void;
     updateProperty: (data: { key: string; value: string | number | boolean | undefined }) => void;
   };
-  errors: Record<string, string>;
 }
 
 // Registry mapping element types to their form components

@@ -2,82 +2,51 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { t } from "@/lib/i18n";
-import { FormProps } from "./index";
+import type { FormProps } from "./index";
 
 /**
  * Form component for Panel Radiator type
  */
-export function PanelRadiatorForm({ element, onChange, errors }: FormProps) {
+export function PanelRadiatorForm({ element, onChange }: FormProps) {
   const { updateDimension, updateProperty } = onChange;
   
   return (
     <div className="space-y-4">
-      {/* Radiator Type */}
       <div>
-        <Label htmlFor="radiator-type">{t("fields.radiatorType")}</Label>
+        <Label htmlFor="panel-type" className="text-sm text-muted-foreground font-light">{t("fields.panelType")}</Label>
         <Select 
-          value={element.properties?.radiatorType as string || ""} 
-          onValueChange={(value) => updateProperty({ key: "radiatorType", value })}
+          value={element.properties?.panelType as string || ""} 
+          onValueChange={(value) => updateProperty({ key: "panelType", value })}
         >
-          <SelectTrigger id="radiator-type">
-            <SelectValue placeholder="Select type" />
+          <SelectTrigger id="panel-type">
+            <SelectValue placeholder={t("placeholders.selectPanelType")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="type1">Type 1</SelectItem>
-            <SelectItem value="type2">Type 2</SelectItem>
+            <SelectItem value="single">{t("selectOptions.panelTypes.single")}</SelectItem>
+            <SelectItem value="double">{t("selectOptions.panelTypes.double")}</SelectItem>
+            <SelectItem value="triple">{t("selectOptions.panelTypes.triple")}</SelectItem>
           </SelectContent>
         </Select>
-        {errors.radiatorType && (
-          <p className="text-sm text-destructive mt-1">{errors.radiatorType}</p>
-        )}
       </div>
       
-      {/* Radiator Model */}
       <div>
-        <Label htmlFor="radiator-model">{t("fields.radiatorModel")}</Label>
-        <Select 
-          value={element.properties?.radiatorModel as string || ""} 
-          onValueChange={(value) => updateProperty({ key: "radiatorModel", value })}
-        >
-          <SelectTrigger id="radiator-model">
-            <SelectValue placeholder="Select model" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="model1">Model 1</SelectItem>
-            <SelectItem value="model2">Model 2</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.radiatorModel && (
-          <p className="text-sm text-destructive mt-1">{errors.radiatorModel}</p>
-        )}
-      </div>
-      
-      {/* Height */}
-      <div>
-        <Label htmlFor="height">{t("fields.height")}</Label>
+        <Label htmlFor="panel-height" className="text-sm text-muted-foreground font-light">{t("fields.height")}</Label>
         <Input 
-          id="height"
+          id="panel-height"
           type="number"
-          value={element.dimensions?.height || ""}
-          onChange={(e) => updateDimension({ key: "height", value: parseInt(e.target.value) || undefined })}
+          value={element.dimensions?.panelHeight || ""}
+          onChange={(e) => updateDimension({ key: "panelHeight", value: parseInt(e.target.value) || undefined })}
         />
-        {errors.height && (
-          <p className="text-sm text-destructive mt-1">{errors.height}</p>
-        )}
       </div>
       
-      {/* Length */}
       <div>
-        <Label htmlFor="length">{t("fields.length")}</Label>
+        <Label htmlFor="panel-length" className="text-sm text-muted-foreground font-light">{t("fields.length")}</Label>
         <Input 
-          id="length"
+          id="panel-length"
           type="number"
-          value={element.dimensions?.length || ""}
-          onChange={(e) => updateDimension({ key: "length", value: parseInt(e.target.value) || undefined })}
+          value={element.dimensions?.panelLength || ""}
+          onChange={(e) => updateDimension({ key: "panelLength", value: parseInt(e.target.value) || undefined })}
         />
-        {errors.length && (
-          <p className="text-sm text-destructive mt-1">{errors.length}</p>
-        )}
       </div>
     </div>
   );
