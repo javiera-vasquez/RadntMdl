@@ -23,7 +23,7 @@ interface HeatingActionsProps {
  */
 export function HeatingActions({ onClose, onAdd }: HeatingActionsProps) {
   return (
-    <div className="flex justify-between ">
+    <div className="flex justify-between items-center w-full">
       <Button
         variant="link"
         onClick={onClose}

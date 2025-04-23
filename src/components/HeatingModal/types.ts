@@ -23,10 +23,6 @@ export interface HeatingElement {
   properties: {
     [key: string]: string | number | boolean | undefined;
   };
-  thermostaticValve?: boolean;
-  photos?: string[];
-  model3d?: string;
-  standardOutput?: number;
 }
 
 export interface HeatingModalProps {

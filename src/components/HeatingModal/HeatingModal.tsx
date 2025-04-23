@@ -171,7 +171,7 @@ function HeatingModalContent({
             )}
           </div>
         </div>
-        <DialogFooter className="border-t p-4 w-full">
+        <DialogFooter className="border-t p-4">
           <HeatingActions 
             onClose={() => onOpenChange(false)}
             onAdd={handleAdd}
