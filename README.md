@@ -9,6 +9,7 @@ A modern, responsive UI component for configuring heating elements in planning a
 This project implements a modal interface for adding and configuring various heating elements (radiators, floor heating, etc.) with the following features:
 - Responsive design (mobile and desktop layouts)
 - Accessible form controls with proper ARIA labels
+- Dark mode support with automatic system preference detection
 - Internationalization support (i18n) with German translations
 - Clean visual hierarchy and intuitive UX
 - Component-based architecture with TypeScript
@@ -69,6 +70,10 @@ src/
   - Full-screen modal on mobile devices
   - Centered modal with max-width on desktop
   - Proper spacing and margins for both layouts
+- **Theme Support**:
+  - Dark mode and light mode support
+  - Automatic system preference detection
+  - Smooth theme transitions
 
 ### Heating Element Configuration
 - **Multiple Element Types**:
@@ -90,6 +95,10 @@ src/
   - Two-column layout for better space utilization
   - Side-by-side type selection and configuration
   - Proper spacing and visual hierarchy
+- **Theme Adaptability**:
+  - Consistent UI in both light and dark modes
+  - High contrast text and controls
+  - Optimized color schemes for readability
 
 ### Internationalization
 - Full German language support
@@ -101,8 +110,15 @@ src/
 - Proper ARIA labels and roles
 - Keyboard navigation support
 - Focus management
+- Color contrast compliance in both themes
 
 ## Recent Changes
+
+### Theme System Implementation
+- Added dark mode support with system preference detection
+- Implemented smooth theme transitions
+- Optimized color schemes for both modes
+- Added high contrast text and controls
 
 ### Mobile Layout Improvements
 - Added full-screen modal support for mobile devices
