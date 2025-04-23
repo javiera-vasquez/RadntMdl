@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { t } from "@/lib/i18n";
+import { Plus } from "lucide-react";
 
 /**
  * Interface for HeatingActions props
@@ -22,25 +23,24 @@ interface HeatingActionsProps {
  */
 export function HeatingActions({ onClose, onAdd }: HeatingActionsProps) {
   return (
-    <div className="flex justify-between items-center mt-6 pt-4 border-t">
-      <div className="flex-1">
-        {/* Left side space - could contain additional actions in the future */}
-      </div>
+    <div className="flex justify-between ">
+      <Button
+        variant="link"
+        onClick={onClose}
+        size="sm" 
+        className="text-muted-foreground cursor-pointer -ml-4"
+      >
+        {t("modal.close")}
+      </Button>
       
-      <div className="flex space-x-2">
-        <Button
-          variant="outline"
-          onClick={onClose}
-        >
-          {t("modal.close")}
-        </Button>
-        
-        <Button
-          onClick={onAdd}
-        >
-          {t("modal.add")}
-        </Button>
-      </div>
+      <Button
+        onClick={onAdd}
+        className="cursor-pointer"
+        size="sm" 
+      >
+        <Plus className="w-4 h-4 mr-0" />
+        {t("modal.add")}
+      </Button>
     </div>
   );
 }

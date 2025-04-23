@@ -1,6 +1,6 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import { t } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
+import { HeatingTypeAccordionItem } from "./components/HeatingTypeAccordionItem";
 
 // Define SupportedHeatingType locally to match what's used in context
 type SupportedHeatingType = 'panel-radiator' | 'steel-cast-radiator';
@@ -40,29 +40,13 @@ export function HeatingTypeSelector({
           className="w-full"
         >
           {Object.entries(elementTypeMap).map(([type, label]) => (
-            <AccordionItem 
-              key={type} 
-              value={type} 
-              className={desktopLayout ? "border-b-0 px-2 py-0.5" : ""}
-            >
-              <AccordionTrigger 
-                className={cn(
-                  "text-xs truncate whitespace-nowrap flex items-center gap-2",
-                  desktopLayout && "py-2 hover:no-underline data-[state=open]:text-primary [&>svg]:rotate-[0deg] [&>svg]:ml-0 [&>svg]:mr-2 [&>svg]:h-3 [&>svg]:w-3 [&[data-state=open]>svg]:-rotate-90",
-                  selectedType === type && "text-primary"
-                )}
-              >
-                {label}
-              </AccordionTrigger>
-              
-              {/* Only show content in mobile layout */}
-              {!desktopLayout && (
-                <AccordionContent>
-                  {/* This is just a placeholder to allow the accordion to work in mobile layout */}
-                  <div className="h-2"></div>
-                </AccordionContent>
-              )}
-            </AccordionItem>
+            <HeatingTypeAccordionItem
+              key={type}
+              type={type}
+              label={label}
+              isSelected={selectedType === type}
+              isDesktopLayout={desktopLayout}
+            />
           ))}
         </Accordion>
       </div>
