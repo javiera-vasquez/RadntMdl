@@ -71,13 +71,13 @@ function HeatingModalContent({
         "w-[100vw]",
         "rounded-sm md:rounded-lg",
       )}>
-        <DialogHeader className="border-b-1 md:px-6 md:py-4 p-4">
-          <DialogTitle className="text-xl font-light">{t("modal.title")}</DialogTitle>
+        <DialogHeader className="border-b-1 md:px-6 md:py-4 p-4 max-h-[56px]">
+          <DialogTitle className="text-lg font-light">{t("modal.title")}</DialogTitle>
         </DialogHeader>
 
-        {/* Circuit Selection - Always shown at the top */}
-        <Card className="md:mx-8 md:mt-4 md:shadow-xs bg-sidebar p-0 rounded-sm shadow-none mx-4">
-          <CardContent className="p-4">
+          {/* Circuit Selection - Always shown at the top */}
+          <Card className="md:mx-8 md:mt-4 md:shadow-xs bg-sidebar p-0 rounded-sm shadow-none mx-4">
+            <CardContent className="p-4">
               <div className="flex justify-between items-center mb-2">
                 <Label htmlFor="heating-circuit" className="text-sm">{t("fields.circuit")}</Label>
                 <Button 
@@ -152,7 +152,7 @@ function HeatingModalContent({
           </div>
           
           {/* Right column - Form fields */}
-          <div className="pl-6 space-y-6 col-span-2">
+          <div className="pl-6 pt-2 pb-4 col-span-2">
             <h3 className="text-lg font-light mb-4 flex items-center">
               {type === 'panel-radiator' 
                 ? t("heatingTypes.panelRadiator") 
@@ -171,12 +171,12 @@ function HeatingModalContent({
             )}
           </div>
         </div>
-        <DialogFooter className="border-t p-4">
-          <HeatingActions 
-            onClose={() => onOpenChange(false)}
-            onAdd={handleAdd}
-          />
-        </DialogFooter>
+          <DialogFooter className="border-t p-4 md:max-h-[56px]">
+            <HeatingActions 
+              onClose={() => onOpenChange(false)}
+              onAdd={handleAdd}
+            />
+          </DialogFooter>
       </DialogContent>
     </Dialog>
   );
