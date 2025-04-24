@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { HeatingElement, HeatingCircuit } from '../types';
 
 // Only use the two supported types
@@ -29,7 +29,6 @@ const initialState: HeatingState = {
       length: 1000
     },
     properties: {},
-    standardOutput: 461
   },
   circuits: [{ id: "circuit-1", name: "Heating circuit 1" }]
 };

@@ -5,7 +5,7 @@ import { HeatingTypeSelector } from "./HeatingTypeSelector";
 import { HeatingActions } from "./HeatingActions";
 import { HeatingContextProvider, useHeatingContext } from "./context/HeatingContext";
 import { elementFormRegistry } from "./registry";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
